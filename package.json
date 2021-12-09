@@ -1,0 +1,32 @@
+{
+  "name": "chamados-app",
+  "version": "1.0.0",
+  "description": "Sistema para registro de tickets para o setor de TI",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Matheus-96/ticket.git"
+  },
+  "keywords": [
+    "electron",
+    "npm",
+    "mongo",
+    "ticket",
+    "desktop",
+    "mvc",
+    "git"
+  ],
+  "author": "Victor Matheus Bordin de Paula",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Matheus-96/ticket/issues"
+  },
+  "homepage": "https://github.com/Matheus-96/ticket#readme",
+  "devDependencies": {
+    "electron": "^16.0.4"
+  }
+}
