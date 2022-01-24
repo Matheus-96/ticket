@@ -1,0 +1,23 @@
+const mongoose = require('mongoose')
+
+exports.User = 
+    mongoose.model('User', {
+        username: {
+            type: String
+        },
+        password: {
+            type: String
+        },
+        date: {
+            type: Date,
+            default: Date.now()
+        },
+        department: {
+            type: String
+            // type: mongoose.SchemaTypes.ObjectId,
+            // ref: 'Department'
+        },
+        email: {
+            type: String
+        }
+    })

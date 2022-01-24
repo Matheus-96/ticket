@@ -1,0 +1,32 @@
+extends ../common/app
+
+block content
+    .row 
+        .offset-3.col-md-6
+            .card
+                .card-header.text-center.fs-3 Cadastro de usuário
+
+                .card-body 
+                
+                    form(action='api/create' method='POST')
+                        .row.form-group.my-3
+                            .col-md-6
+                                label(for='username') Nome de usuário
+                                input.form-control(type='username', name='username' autofocus=true)
+                            .col-md-6
+                                label(for='password') Senha
+                                input.form-control(type='password', name='password')
+                        .form-group.mb-3
+                        .form-group.mb-3
+                            label(for='email') Email
+                            input.form-control(type='email', name='email')
+                        .form-group.mb-3
+                            label(for='department') Setor Padrão
+                            select.form-control#department
+                                option(disabled selected) Selecione uma opção
+                                option(value='Extrusão') Extrusão
+                                option(value='Comercial') Comercial
+                                option(value='Contabilidade') Contabilidade
+                        button.btn.btn-primary.mb-2(type='submit') Registrar
+                
+                .card-footer.small.text-center=process.env.APP_NAME
