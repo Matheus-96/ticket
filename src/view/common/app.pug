@@ -1,0 +1,16 @@
+doctype
+html(lang='en')
+    head
+        link(rel="stylesheet" href="/css/bootstrap.css")
+        link(rel='stylesheet' href='/css/bs-icons/bootstrap-icons.css')
+        meta(charset='utf-8')
+        meta(name="viewport" content="width=device-width, initial-scale=1")
+        script(src='/js/jquery-3.6.0.min.js')
+        title=process.env.APP_NAME
+    body
+        
+        include ../common/navbar
+        .container.mt-5
+            block content
+
+        script(src="/js/bootstrap.js")

@@ -1,0 +1,54 @@
+extends ../common/app
+
+block content
+    form(action="api/create" method="POST" enctype="multipart/form-data").accordion
+        .accordion-item
+            button.accordion-button.fs-4(data-bs-toggle='collapse' data-bs-target='collapseDepartment') Departamento
+                i.bi-exclamation-circle.bi-check-circle.ms-3.text-danger#departmentCheck
+                input(readonly type='hidden' name='department').form-control.text-dark#selectedDepartment
+            #collapseDepartment.accordion-collapse 
+                .accordion-body.d-flex.d-inline-flex.flex-wrap.justify-content-around
+                    each val in department
+                        .card.m-2(data-department=val)
+                            .card-header.text-center=val
+                            .card-body
+                                img(src='data:image/png;base64,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')
+        .accordion-item 
+            button.accordion-button.fs-4(data-bs-toggle='collapse' data-bs-target='collapseDetails') Detalhes do chamado
+                i.bi-exclamation-circle.bi-check-circle.ms-3.text-danger#detailsCheck
+            
+            #collapseDetails.accordion-collapse.collapse.show.w-100
+                .accordion-body.d-flex.d-inline-flex.flex-wrap.justify-content-around.w-100
+                    input(type='hidden' name='user' value=process.session.userId )
+                    .input-group
+                        label(for="description").input-group-text.col-2 Descrição
+                        textarea(type="text" name='description').form-control#description
+
+                    .btn-group.mt-3.w-100
+                        label(for="").input-group-text.col-2 Prioridade
+                        input(type="radio" value='1' name='priority' checked).btn-check#priority1
+                        label(for="priority1" ).btn.btn-outline-primary.text-dark 1
+                        input(type="radio" value='2' name='priority').btn-check#priority2
+                        label(for="priority2" ).btn.btn-outline-warning.text-dark 2
+                        input(type="radio" value='3' name='priority').btn-check#priority3
+                        label(for="priority3" ).btn.btn-outline-danger.text-dark 3
+
+                    .input-group.mt-3 
+                        label(for="attachments").input-group-text.col-2  Anexos 
+                        input(type="file", name="attachments", multiple).form-control#attachments
+                    
+                    .input-group.mt-3 
+                        button(type="submit").btn.btn-primary.ms-auto.ps-5.pe-5 Registrar
+
+    #modalRegister.modal
+        .modal-dialog 
+            .modal-content 
+                .modal-header 
+                    h5.modal-title Cadastrar novo chamado 
+                    button.btn-close.close-modal
+                .modal-body  fds
+                .modal-footer 
+                    button.btn.btn-secondary.close-modal Cancelar
+                    button#btn-select-department.btn.btn-primary Selecionar
+
+    script(src='/js/ticketCreate.js')

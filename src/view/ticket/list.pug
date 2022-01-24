@@ -1,0 +1,39 @@
+extends ../common/app
+
+block content 
+    .fs-2= `Olá ${process.session.username}, seus chamados:`
+    table.table.table-hover.table-bordered.mt-5
+        thead 
+            tr.text-center
+                th ID 
+                th.d-md-none Prioridade
+                th Data
+                th Problema 
+                th Requerente
+                th Status 
+                th Ações 
+        tbody
+            each ticket, index in tickets 
+                tr.text-center
+                        td=  tickets.length - index
+                        td.position-relative
+                            if ticket.priority == 3
+                                span.badge.rounded-circle.bg-danger.p-2.position-absolute.start-50.top-50.translate-middle
+                                    span 
+                            if ticket.priority == 2
+                                span.badge.rounded-circle.bg-warning.p-2.position-absolute.start-50.top-50.translate-middle
+                                    span 
+                            if ticket.priority == 1
+                                span.badge.rounded-circle.bg-success.p-2.position-absolute.start-50.top-50.translate-middle
+                                    span 
+                        td= ticket.date
+                        td= ticket.description
+                        td= ticket.user.username
+                        td status
+                        td
+                            a(href='/ticket/view/'+ticket._id)
+                                span.badge.bg-success Abrir
+            else 
+                tr 
+                    td(colspan='7').text-center Não existem chamados em aberto!
+    
