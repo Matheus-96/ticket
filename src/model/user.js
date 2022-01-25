@@ -19,5 +19,8 @@ exports.User =
         },
         email: {
             type: String
+        },
+        admin: {
+            type: Boolean
         }
     })

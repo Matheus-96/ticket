@@ -34,10 +34,11 @@ router.get('/view/:id', async (req, res) => {
 
 router.post('/api/login', async(req, res) => {
     let loginData = await controller.login(req.body)
-    
     if(loginData) {
         req.session.username = loginData.username
         req.session.userId = loginData._id
+        req.session.admin = loginData.admin
+        req.session.email = loginData.email
         res.redirect('/ticket/list')
     } else {
         res.redirect('/?forbidden=true')

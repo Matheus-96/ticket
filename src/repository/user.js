@@ -21,6 +21,7 @@ exports.getAll = async () => {
     return await User.find()
 }
 
+
 exports.get = async (id) => {
     return await User.find({_id: id})
 }
