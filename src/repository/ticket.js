@@ -26,7 +26,7 @@ exports.post = async (data) => {
     })
     const mailOptions = {
         from: 'ti@agm.ind.br',
-        to: 'victor.id96@hotmail.com',
+        to: process.session.email,
         subject: `Chamado - ${data.body.department}`,
         text: `
         Novo chamado aberto no setor ${data.body.department}
@@ -61,6 +61,10 @@ exports.post = async (data) => {
 
 exports.getAll = async () => {
     return await Ticket.find().populate('user')
+}
+
+exports.getFromUser = async (userId) => {
+    return await Ticket.find({user: userId}).populate('user')
 }
 
 exports.get = async (id) => {

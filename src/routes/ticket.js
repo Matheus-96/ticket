@@ -9,15 +9,18 @@ const {
 const upload = multer({
     dest: 'public/uploads/'
 })
+const moment = require('moment')
 
 //Rotas da View
 
 router.get('/list', async (req, res) => {
-    let tickets = await controller.getAll()
+    let tickets = (process.session.admin ? 
+        await controller.getAll() : await controller.getFromUser(process.session.userId))
     res.render('ticket/list', {
-        tickets
+        tickets, moment
     })
 })
+
 
 router.get('/create', (req, res) => {
     res.render('ticket/create', {
