@@ -1,11 +1,25 @@
 nav.navbar.navbar-expand-lg.navbar-light.bg-primary
     div.container-fluid.mx-4
         a.navbar-brand(href='/') TicketApp
-        button.navbar-toggler(type='button' data-bs-toggle='collapse' data-bs-target='#navbarTicket') Z
+        button.navbar-toggler(type='button' data-bs-toggle='collapse' data-bs-target='#navbarTicket') ▼
         .collapse.navbar-collapse#navbarTicket
             .navbar-nav.me-auto 
-                a(href='/ticket/list').nav-link Listar abertos
-                a(href='/ticket/create').nav-link Cadastrar chamado
-                a(href='#').nav-link Chamado irregular
-            if process.session                
-                a(href='/user/api/logout').nav-link.text-dark Sair
+                if process.session
+                    if process.session.user
+                        a(href='/ticket/list').nav-link Meus tickets
+                        a(href='/ticket/create').nav-link Registrar ticket
+                        if process.session.user.admin == true
+                            a(href='#').nav-link Registrar irregular
+                            .dropdown 
+                                a(href='#' data-bs-toggle='dropdown').nav-link Usuários ▼
+                                ul.dropdown-menu 
+                                    li
+                                        a(href="/user/register").dropdown-item Registrar
+                                        a(href="/user/list").dropdown-item Todos os usuários
+                            .dropdown   
+                                a(href='#' data-bs-toggle='dropdown').nav-link Setores ▼
+                                ul.dropdown-menu 
+                                    li
+                                        a(href="/department/create").dropdown-item Registrar
+                                        a(href="/department/list").dropdown-item Todos os setores
+            a(href='/user/api/logout').nav-link.text-dark Sair

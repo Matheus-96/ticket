@@ -1,0 +1,62 @@
+extends ../common/app
+
+block content 
+    if (typeof(process.session) != 'undefined')
+        .fs-2.mb-4= `Departamentos cadastrados`
+    .d-none.d-md-block
+        table.table.table-hover.table-bordered.mt-5
+            thead 
+                tr.text-center
+                    th(width='50') ID 
+                    th(width='') Setor
+                    th(width='') Imagem 
+                    th(width='') Ações 
+            tbody
+                each department, index in departments 
+                    tr.text-center
+                            td=  departments.length - index
+                            td= department.department
+                            td.d-flex.justify-content-center
+                                if department.departmentImage
+                                    div(style=`height: 100px; width: 100px; background-image: url(${department.departmentImage}); background-size: contain; background-position: center; background-repeat:no-repeat; `)
+                                else
+                                    div(style='height: 100px;').position-relative
+                                        .fs-2.text-center.position-absolute.top-50.translate-middle= department.department
+                            td
+                                a(href='/department/view/' + department._id)
+                                    span.badge.bg-success Abrir
+                else 
+                    tr 
+                        td(colspan='7').text-center Não existem chamados em aberto!
+    
+    //- div.d-md-none
+    //-     .accordion  
+    //-         each ticket, index in tickets 
+    //-             .accordion-item(style='min-height: 70px')
+                
+    //-                 button.accordion-button.position-relative.fs-4(data-bs-toggle='collapse' data-bs-target=`ticket${index}` style='min-height: 70px')
+    //-                     if ticket.priority == 3
+    //-                         span.badge.rounded-circle.bg-danger.p-2.position-absolute.top-50.translate-middle
+    //-                             span 
+    //-                     if ticket.priority == 2
+    //-                         span.badge.rounded-circle.bg-warning.p-2.position-absolute.top-50.translate-middle
+    //-                             span 
+    //-                     if ticket.priority == 1
+    //-                         span.badge.rounded-circle.bg-success.p-2.position-absolute.top-50.translate-middle
+    //-                             span 
+    //-                     div.ps-3
+    //-                         .fs-4= `${ticket.department} - ${ticket.user.username}`
+    //-                         if ticket.description.length > 25
+    //-                             small= ticket.description.substring(0,25)+'...'
+    //-                         else
+    //-                             small= ticket.description
+
+    //-             .accordion-collapse.collapse.w-100.bg-light(id=`ticket${index}`)
+    //-                 .accordion-body.d-flex.d-inline-flex.flex-wrap.justify-content-around.w-100
+    //-                     p.text-start.w-100= ticket.description
+
+    //-                     a(href='/ticket/view/'+ticket._id)
+    //-                                 span.badge.bg-success Abrir
+    //-                     small.text-end.w-100= moment(ticket.date).format('DD-MM-YYYY')
+
+    script(src='/js/ticketCreate.js')

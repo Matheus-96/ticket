@@ -1,0 +1,22 @@
+extends ../common/app
+
+block content
+    .row 
+        .offset-md-3.col-md-6
+            .card
+                .card-header.text-center.fs-3 Cadastro de setores
+
+                .card-body 
+                
+                    form(action='api/create' method='POST' enctype="multipart/form-data")
+                        .row.form-group.my-3
+                            .col-12
+                                label(for='department') Setor
+                                input.form-control(type='text', name='department' autofocus=true)
+                        .form-group.mb-3
+                            label(for='departmentImage') Imagem do setor
+                            input.form-control(type='file', name='image')
+                        
+                        button.btn.btn-primary.mb-2(type='submit') Registrar
+                
+                .card-footer.small.text-center=process.env.APP_NAME

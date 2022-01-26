@@ -4,10 +4,10 @@ block content
     .card
         .card-header
             .row 
-                .col-md-11
-                    .fs-1=ticket[0].department
+                .col-8
+                    .fs-1=ticket[0].department.department
                     .fs-3=ticket[0].user.username
-                .col-md-1.position-relative
+                .col-2.position-relative
                     if ticket[0].priority == 3
                         span.badge.rounded-circle.bg-danger.p-4.position-absolute.start-50.top-50.translate-middle
                             span 
@@ -17,15 +17,16 @@ block content
                     if ticket[0].priority == 1
                         span.badge.rounded-circle.bg-success.p-4.position-absolute.start-50.top-50.translate-middle
                             span 
+                .col-2.d-inline-flex.justify-content-center
+                    button.badge.btn.btn-success.w-100 Responder
+
 
         .card-body(style='min-height: 250px')= ticket[0].description
 
-        .card-footer.fs-4#attachments Anexos
-            ol.fs-5.list-group.list-group-horizontal.my-3
+        .card-footer.fs-4.mb-5#attachments Anexos
+            ol.fs-5.list-group.list-group-vertical.my-3
                 each file in ticket[0].files
                     li.list-group-item
-                        a(href="/uploads/"+file.name target='popup')= file.originalName
+                        a(href="uploads/"+file.name target='popup')= file.originalName
                 else
                     div Nenhum anexo
-
-    div=ticket[0]
