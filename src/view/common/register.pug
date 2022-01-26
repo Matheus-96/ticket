@@ -22,11 +22,11 @@ block content
                             input.form-control(type='email', name='email')
                         .form-group.mb-3
                                 label(for='department') Setor Padrão
-                                select.form-control#department
+                                select.form-control#department(name='department')
                                     option(disabled selected) Setor
-                                    option(value='Extrusão') Extrusão
-                                    option(value='Comercial') Comercial
-                                    option(value='Contabilidade') Contabilidade
+                                    each department in departments
+                                        option(value=department._id)= department.department
+                                    
                                 .form-check.mt-3
                                     input#role.form-check-input(type="checkbox", name="admin" value='true')
                                     label(for='role').form-check-label Administrador

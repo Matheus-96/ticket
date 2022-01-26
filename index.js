@@ -1,6 +1,4 @@
 require('dotenv').config()
-const multer  = require('multer')
-const upload = multer({ dest: 'localStorage/' })
 
 const express = require('express')
 
@@ -32,13 +30,15 @@ app.use(cookieParser());
 const userRoute = require('./src/routes/user');
 app.use('/user', userRoute)
 
+const departmentRoute = require('./src/routes/department');
+app.use('/department', departmentRoute)
+
 //Rotas
 const ticketRoute = require('./src/routes/ticket');
 app.use('/ticket', middlewares.auth, ticketRoute)
 app.get('/', (req, res) => {
 
     let session = req.session
-    console.log(req.session)
     if(session.username){
         res.redirect('ticket/list')
     } else {

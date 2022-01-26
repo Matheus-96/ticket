@@ -1,4 +1,6 @@
 $(document).ready(() => {
+
+
     $(".card").on('click', e => {
         // $("#modalRegister").toggle()
         $('.card').each((i, e) => $(e)[0].classList.remove('bg-primary'))

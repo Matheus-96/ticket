@@ -1,23 +1,23 @@
-const userRepository = require('../repository/user')
+const departmentRepository = require('../repository/department')
 const db = require('../database/db_connect')
 
 db.connectDatabase()
 
 exports.post = async (body) => {
-    await userRepository.post(body)
+    return await departmentRepository.post(body)
 
 }
 
 exports.getAll = async () => {
-    return await userRepository.getAll()
+    return await departmentRepository.getAll()
 }
 
 exports.get = async (id) => {
-    return await userRepository.get(id)
+    return await departmentRepository.get(id)
 }
 
 exports.login = async (body) => {
-    return await userRepository.login(body)
+    return await departmentRepository.login(body)
 }
 
 exports.logout = async (session) => {

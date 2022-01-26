@@ -13,9 +13,8 @@ exports.User =
             default: Date.now()
         },
         department: {
-            type: String
-            // type: mongoose.SchemaTypes.ObjectId,
-            // ref: 'Department'
+            type: mongoose.SchemaTypes.ObjectId,
+            ref: 'Department'
         },
         email: {
             type: String

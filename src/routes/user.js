@@ -1,4 +1,5 @@
 const controller = require('../controller/user')
+const controllerDepartment = require('../controller/department')
 const express = require("express")
 const router = express.Router()
 
@@ -12,14 +13,19 @@ router.get('/list', async (req, res) => {
 })
 
 router.get('/register', async (req, res) => {
-    //let tickets = await controller.getAll()
-    res.render('common/register')
+    let departments = await controllerDepartment.getAll()
+    console.log(departments)
+    res.render('common/register', {
+        departments
+    })
 })
 
 
-router.get('/create', (req, res) => {
+router.get('/create', async (req, res) => {
+    let departments = await controllerDepartment.getAll()
+    console.log(departments)
     res.render('ticket/create', {
-        department: ['Extrusão', 'Corte', 'Manutenção', 'RH', 'Contabilidade', 'Cadastros', 'Geral', 'Comercial']
+        departments
     })
 })
 
@@ -35,10 +41,7 @@ router.get('/view/:id', async (req, res) => {
 router.post('/api/login', async(req, res) => {
     let loginData = await controller.login(req.body)
     if(loginData) {
-        req.session.username = loginData.username
-        req.session.userId = loginData._id
-        req.session.admin = loginData.admin
-        req.session.email = loginData.email
+        req.session.user = loginData
         res.redirect('/ticket/list')
     } else {
         res.redirect('/?forbidden=true')

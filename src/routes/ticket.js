@@ -1,4 +1,5 @@
 const controller = require('../controller/ticket')
+const controllerDepartment = require('../controller/department')
 const express = require("express")
 const router = express.Router()
 require('dotenv').config()
@@ -14,17 +15,18 @@ const moment = require('moment')
 //Rotas da View
 
 router.get('/list', async (req, res) => {
-    let tickets = (process.session.admin ? 
-        await controller.getAll() : await controller.getFromUser(process.session.userId))
+    let tickets = (process.session.user.admin ? 
+        await controller.getAll() : await controller.getFromUser(process.session.user._id))
     res.render('ticket/list', {
         tickets, moment
     })
 })
 
 
-router.get('/create', (req, res) => {
+router.get('/create', async(req, res) => {
+    let departments = await controllerDepartment.getAll()
     res.render('ticket/create', {
-        department: ['Extrusão', 'Corte', 'Manutenção', 'RH', 'Contabilidade', 'Cadastros', 'Geral', 'Comercial']
+        departments
     })
 })
 
