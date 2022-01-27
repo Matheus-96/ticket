@@ -1,0 +1,19 @@
+extends ../common/app
+
+block content 
+    .card
+        .card-header
+            .row 
+                .col-8
+                    .fs-1 teste1
+                    .fs-3 teste
+                .col-2.position-relative
+                    span.badge.rounded-circle.bg-success.p-4.position-absolute.start-50.top-50.translate-middle
+                        span 
+                .col-2.d-inline-flex.justify-content-center
+                    button.badge.btn.btn-success.w-100 Responder
+
+
+        .card-body(style='min-height: 250px') teste2
+
+        .card-footer.fs-4#attachments Anexos
