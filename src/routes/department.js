@@ -22,11 +22,8 @@ router.get('/create', (req, res) => {
 })
 
 router.get('/view/:id', async (req, res) => {
-    let ticket = await controller.get(req.params.id)
-    console.log(ticket)
-    res.render('ticket/view', {
-        ticket: ticket
-    })
+    let department = await controller.get(req.params.id)
+    res.render('department/view', { department })
 })
 
 //Rotas da API
