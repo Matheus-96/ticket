@@ -1,0 +1,25 @@
+.fast-answer {
+    width: 0px;
+    opacity: 0;
+    visibility: hidden;
+    transition: width .5s, opacity .75s;
+}
+
+.lightning-ans-btn:active .fast-answer {
+    visibility: visible;
+    max-height: 30vh;
+    width: 650px;
+    max-width: 60vw;
+    display: block !important;
+    opacity: 1;
+}
+
+.fast-answer:hover {
+    visibility: visible;
+    max-height: 30vh;
+    width: 650px;
+    max-width: 60vw;
+    display: block !important;
+    opacity: 1;
+    
+}

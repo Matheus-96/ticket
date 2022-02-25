@@ -22,9 +22,6 @@ exports.Ticket =
             type: String,
             required: true
         },
-        contingency: {
-            type: String
-        },
         files: [
             {
                 originalName: {
@@ -34,5 +31,9 @@ exports.Ticket =
                     type: String,
                 }
             }
-        ]
+        ],
+        status: {
+            type: String,
+            default: "open"
+        }
     })

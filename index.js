@@ -33,6 +33,9 @@ app.use('/user', userRoute)
 const departmentRoute = require('./src/routes/department');
 app.use('/department', departmentRoute)
 
+const ticketMov = require('./src/routes/ticketMov');
+app.use('/ticketMov', ticketMov)
+
 //Rotas
 const ticketRoute = require('./src/routes/ticket');
 app.use('/ticket', middlewares.auth, ticketRoute)

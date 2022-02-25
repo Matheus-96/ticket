@@ -8,8 +8,17 @@ exports.post = async (req) => {
 
 }
 
+exports.postMov = async (req) => {
+    await ticketRepository.postMov(req)
+
+}
+
 exports.getAll = async () => {
     return await ticketRepository.getAll()
+}
+
+exports.getAllMovs = async (id) => {
+    return await ticketRepository.getAllMovs(id)
 }
 
 exports.getFromUser = async (userId) => {
@@ -18,4 +27,8 @@ exports.getFromUser = async (userId) => {
 
 exports.get = async (id) => {
     return await ticketRepository.get(id)
+}
+
+exports.finishTicket = async (id) => {
+    return await ticketRepository.finishTicket(id)
 }

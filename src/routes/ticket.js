@@ -1,5 +1,6 @@
 const controller = require('../controller/ticket')
 const controllerDepartment = require('../controller/department')
+const controllerMovs = require('../controller/ticketMov')
 const express = require("express")
 const router = express.Router()
 require('dotenv').config()
@@ -32,9 +33,10 @@ router.get('/create', async(req, res) => {
 
 router.get('/view/:id', async (req, res) => {
     let ticket = await controller.get(req.params.id)
+    ticket.movs = await controller.getAllMovs(req.params.id)
     console.log(ticket)
     res.render('ticket/view', {
-        ticket: ticket
+        ticket: ticket, moment
     })
 })
 
@@ -42,6 +44,12 @@ router.get('/view/:id', async (req, res) => {
 
 router.post('/api/create', upload.array('attachments'), async (req, res) => {
     await controller.post(req)
+    res.redirect('/ticket/list')
+})
+
+router.post('/api/createMov', async (req, res) => {
+    await controller.postMov(req)
+    if(req.body.finished == 'on') controller.finishTicket(req.body.ticket)
     res.redirect('/ticket/list')
 })
 module.exports = router;

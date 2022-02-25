@@ -3,8 +3,12 @@ const mime = require('mime-types')
 const nodemailer = require('nodemailer')
 const moment = require('moment')
 const {
-    Ticket
+  Ticket
 } = require('../model/ticket')
+
+const {
+  TicketMov
+} = require('../model/ticketMov')
 
 const fs = require('fs')
 
@@ -35,7 +39,7 @@ exports.post = async (data) => {
         secure: false,
         auth: {
             user: 'ti@agm.ind.br',
-            pass: 'ti@2019#..'
+            pass: '(!@#$%*90As)'
         },
         tls: {
             rejectUnauthorized: false
@@ -280,14 +284,34 @@ exports.post = async (data) => {
 
 }
 
+
+
+exports.postMov = async (data) => {
+
+  let ticketMov = new TicketMov()
+
+  ticketMov.description = data.body.description
+  ticketMov.user = process.session.user._id
+  ticketMov.ticket = data.body.ticket
+  ticketMov.save()
+}
+
 exports.getAll = async () => {
-    return await Ticket.find().populate('user')
+    return await Ticket.find({status: "open"}).populate('user')
+}
+
+exports.getAllMovs = async (id) => {
+  return await TicketMov.find({ticket: id})
 }
 
 exports.getFromUser = async (userId) => {
-    return await Ticket.find({user: userId}).populate('user')
+    return await Ticket.find({user: userId, status:"open"}).populate('user')
 }
 
 exports.get = async (id) => {
     return await Ticket.find({_id: id}).populate('user department')
+}
+
+exports.finishTicket = async (id) => {
+    return await Ticket.findOneAndUpdate({_id: id}, {status: "finished"}).populate('user department')
 }

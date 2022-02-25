@@ -6,27 +6,91 @@ block content
             .row 
                 .col-8
                     .fs-1=ticket[0].department.department
-                    .fs-3=ticket[0].user.username
+                    .fs-3=moment(ticket[0].date).format('DD/MM/yyyy hh:mm') + " - " + ticket[0].user.username
                 .col-2.position-relative
                     if ticket[0].priority == 3
-                        span.badge.rounded-circle.bg-danger.p-4.position-absolute.start-50.top-50.translate-middle
+                        span.badge.rounded-circle.bg-danger.p-4.position-absolute.start-50.start-50.top-50.translate-middle
                             span 
                     if ticket[0].priority == 2
-                        span.badge.rounded-circle.bg-warning.p-4.position-absolute.start-50.top-50.translate-middle
+                        span.badge.rounded-circle.bg-warning.p-4.position-absolute.start-50.start-50.top-50.translate-middle
                             span 
                     if ticket[0].priority == 1
-                        span.badge.rounded-circle.bg-success.p-4.position-absolute.start-50.top-50.translate-middle
+                        span.badge.rounded-circle.bg-success.p-4.position-absolute.start-50.start-50.top-50.translate-middle
                             span 
                 .col-2.d-inline-flex.justify-content-center
-                    button.badge.btn.btn-success.w-100 Responder
+                    button.badge.btn.btn-success.w-100(data-bs-toggle="modal" data-bs-target="#modalMov") Responder
 
 
-        .card-body(style='min-height: 250px')= ticket[0].description
+        .card-body(style='min-height: 250px')
+            .first=ticket[0].description
+            each mov in ticket.movs 
+                hr
+                div
+                    span=moment(mov.date).format('DD/MM/yyyy hh:mm')+ " - "
+                    
+                    span=mov.description
 
         .card-footer.fs-4#attachments Anexos
             ol.fs-5.list-group.list-group-vertical.my-3
                 each file in ticket[0].files
                     li.list-group-item
-                        a(href="uploads/"+file.name target='popup')= file.originalName
+                        a(href="/uploads/"+file.name target='popup')= file.originalName
                 else
                     div Nenhum anexo
+
+    #modalMov.modal.fade
+        .modal-dialog.modal-lg
+            .modal-content 
+                .modal-header 
+                    h5.modal-title Responder Chamado
+                    button.btn-close.close-modal(data-bs-dismiss="modal")
+                .modal-body
+                    .card
+                        .fs-5.mb-1.card-header Detalhes
+                        .card-body
+                            .row.my-2
+                                .col-1.position-relative
+                                    if ticket[0].priority == 3
+                                        span.badge.rounded-circle.bg-danger.p-2.position-absolute.start-50.top-50.translate-middle
+                                            span 
+                                    if ticket[0].priority == 2
+                                        span.badge.rounded-circle.bg-warning.p-2.position-absolute.start-50.top-50.translate-middle
+                                            span 
+                                    if ticket[0].priority == 1
+                                        span.badge.rounded-circle.bg-success.p-2.position-absolute.start-50.top-50.translate-middle
+                                            span 
+                                .col-5
+                                    span Criado por: 
+                                    span= ticket[0].user.username
+                                .col-5
+                                    span Data da criação: 
+                                    span= moment(ticket[0].date).format("DD/MM/YYYY")
+                            hr
+                            .row.my-2
+                                .col-12.d-flex-column
+                                    span.input-group Problema
+                                    .card.w-100.p-2(style='min-height: 150px')
+                                        =ticket[0].description
+                            hr
+                            form(action="#", method="post")
+                                .row.my-2
+                                    .col-12.d-flex-column
+                                        span.input-group Resposta
+                                        textarea#answer.w-100.p-2.form-control(style='min-height: 150px')
+                                .row 
+                                    .col-12
+                                        label(for="status") Status
+                                        select.form-control#status(name="status") 
+                                            option(value="finished") Encerrado
+                                            option(value="waiting") Aguardando resposta
+                                            option(value="analysis") Em análise
+                                        
+                                .row
+
+                                    .col-6 
+                                        label(for="data") Data Encerramento
+                                        input.form-control#data(type="date" name='data')
+
+                .modal-footer 
+                    button.btn.btn-secondary.close-modal(data-bs-dismiss="modal") Cancelar
+                    button#btn-select-department.btn.btn-primary Selecionar

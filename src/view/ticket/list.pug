@@ -1,6 +1,7 @@
 extends ../common/app
-
 block content 
+    link(rel="stylesheet", href="/css/ticket-list.css")
+
     .fs-2.mb-4= `Olá ${process.session.user.username}, seus chamados:`
     .d-none.d-md-block
         table.table.table-hover.table-bordered.mt-5
@@ -31,13 +32,24 @@ block content
                             td= ticket.description
                             td= ticket.user.username
                             td= ticket.status
-                            td.d-inline-flex
-                                a(href='/ticket/view/'+ticket._id)
-                                    span.badge.bg-success
-                                        i.bi.bi-search
-                                a(href='/ticket/delete/'+ticket._id)
-                                    span.badge.bg-danger
-                                        i.bi.bi-trash
+                            td
+                                div.btn-group(role='group')
+                            
+                                    button.btn.btn-warning.lightning-ans-btn
+                                        i.bi.bi-lightning
+                                        .end-100.bottom-50.position-absolute.me-2.border.bg-light.p-3.fast-answer
+                                            form(action="api/createMov", method="post").d-flex.flex-column
+                                                label(for="answer").form-label.text-start.text-dark Interação rápida
+                                                textarea#answer(name="description" required).form-control
+                                                input(type="hidden", name="ticket" value=ticket._id)
+                                                .form-group.d-flex.justify-content-start
+                                                    input#finished(type="checkbox", name="finished").me-1
+                                                    label(for='finished') Encerrar
+                                                input(type="submit", value="Responder").btn.btn-success.mt-2.justify-content-end 
+                                    a(href='/ticket/view/'+ticket._id).btn.btn-success
+                                            i.bi.bi-search
+                                    a(href='/ticket/delete/'+ticket._id).btn.btn-danger
+                                            i.bi.bi-trash
                 else 
                     tr 
                         td(colspan='7').text-center Não existem chamados em aberto!
